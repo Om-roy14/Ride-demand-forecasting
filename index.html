@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ride Demand Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;    
+            background: url("{{ url_for('static', filename='road.png') }}") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 40px;
+            color: #f5f6fa;
+        }
+
+        h2 {
+            text-align: center;
+            color: #0f0f0f;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background: #1e272e;
+            border: 1px solid #485460;
+            color: #f5f6fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            margin-top: 25px;
+            background-color: #e5e3dc;
+            color: #000;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e1b12c;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #022e25;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>🚗 Ride Demand Predictor</h2>
+    <form method="POST">
+        <label>Season (1-4):</label>
+        <select name="season" required>
+            <option value="1">SUMMER</option>
+            <option value="2">SPRING</option>
+            <option value="3">MONSOON</option>
+            <option value="4">WINTER</option>
+        </select>
+
+        <label>Weather (1-4):</label>
+        <input type="number" step="any" name="weather" min="1" max="4" required>
+
+        <label>Temperature:</label>
+        <input type="number" step="any" name="temp" min="0" max="50" required>
+
+        <label>Humidity:</label>
+        <input type="number" step="any" name="humidity" required>
+
+        <label>Windspeed:</label>
+        <input type="number" step="any" name="windspeed" required>
+
+        <label>Casual:</label>
+        <input type="number" step="any" name="casual" required>
+
+        <label>Day (1-31):</label>
+        <input type="number" name="day" min="1" max="31" required>
+
+        <label>Month:</label>
+        <input type="number" name="month" min="1" max="12" required>
+
+        <label>Year (2011-2013):</label>
+        <input type="number" name="year" min="2011" max="2013" required>
+
+        <label>Weekday:</label>
+        <select name="weekday" required>
+            <option value="1">Weekday</option>
+            <option value="0">Weekend</option>
+        </select>
+
+        <label>AM or PM:</label>
+        <select name="am_or_pm" required>
+            <option value="1">PM</option>
+            <option value="0">AM</option>
+        </select>
+
+        <label>Holiday:</label>
+        <select name="holidays" required>
+            <option value="1">Holiday</option>
+            <option value="0">Not Holiday</option>
+        </select>
+
+        <button class="btn" type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">{{ prediction }}</div>
+    {% endif %}
+</body>
+</html>
